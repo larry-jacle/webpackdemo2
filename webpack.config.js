@@ -1,11 +1,13 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin=require("html-webpack-plugin");
+var path=require("path");
 
 module.exports={
-    entry:"./src/js/index.js",
+    entry:{app:"./src/js/index.js"},
     output:{
-        path:__dirname+"/dist",
-        filename:"[name].bundle.js",
-        chunkFilename: '[name].chunk.js'
+        path: path.resolve(__dirname, "dist"),
+        filename:"[name].[hash].bundle.js"
+        //filename:"[name].[chunkhash:8].bundle.js"
     },
     module:{
         rules :[{
@@ -14,7 +16,7 @@ module.exports={
                 {
                     loader: 'style-loader',
                     options:{
-                        transform:"./src/utils/transform.js"
+                        transform:'/src/utils/transform.js'
                     }
                     //loader: 'style-loader/url'
                 },
@@ -23,8 +25,18 @@ module.exports={
                     //loader: 'file-loader'
                 }
             ]
-        }]
+        }],
+
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title:'平台',
+            filename:"index.html",
+            template:"./index.html",
+            minify: {collapaseWhitespace:true},
+            hash:false
+        })
+    ],
     devServer:{
         port:9099
     }
