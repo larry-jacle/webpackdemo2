@@ -15,8 +15,9 @@ module.exports={
             use:[
                 {
                     loader: 'style-loader',
+                    // loader: 'style-loader/useable',
                     options:{
-                        transform:'/src/utils/transform.js'
+                        transform:'./src/css/transform.js'
                     }
                     //loader: 'style-loader/url'
                 },
